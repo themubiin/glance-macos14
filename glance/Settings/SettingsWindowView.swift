@@ -119,7 +119,7 @@ struct SettingsWindowView: View {
 
             if let headerTrailingAction {
                 Button(action: headerTrailingAction.perform) {
-                    Image(systemName: "arrow.trianglehead.clockwise.rotate.90")
+                    Image(systemName: "arrow.clockwise")
                         .font(.system(size: 13))
                         .foregroundStyle(SettingsMetrics.textPrimary)
                         .frame(width: SettingsMetrics.headerButtonHeight, height: SettingsMetrics.headerButtonHeight)

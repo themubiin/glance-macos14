@@ -951,6 +951,7 @@ final class WindowConfiguringView: NSView {
     }
 
     private static func configure(_ window: NSWindow) {
+        window.isRestorable = false
         // `.fullSizeContentView` + transparent titlebar + hidden title keeps
         // real titlebar machinery (traffic lights, native corner mask,
         // active/inactive appearance) without drawing a chrome band.

@@ -21,6 +21,13 @@ struct MinimalUnlockView: View {
     var pulseScale: CGFloat = 1
     var pulseOpacity: Double = 1
 
+    private var lockTransition: ContentTransition {
+        if #available(macOS 15, *) {
+            return .symbolEffect(.replace.magic(fallback: .replace))
+        }
+        return .symbolEffect(.replace)
+    }
+
     var body: some View {
         HStack(spacing: 0) {
             Image(systemName: isUnlocked ? "lock.open.fill" : "lock.fill")
@@ -28,7 +35,7 @@ struct MinimalUnlockView: View {
                 .foregroundStyle(GlanceTheme.textPrimary)
                 // The explicit `.animation` below is required: the phase change that flips
                 // `isUnlocked` isn't itself wrapped in an animation transaction.
-                .contentTransition(.symbolEffect(.replace.magic(fallback: .replace)))
+                .contentTransition(lockTransition)
                 .animation(
                     .smooth(duration: NotchGeometry.minimalLockAnimationDuration),
                     value: isUnlocked

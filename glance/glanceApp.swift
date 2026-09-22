@@ -11,37 +11,26 @@ import SwiftUI
 struct glanceApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
-    /// Only reliable way to reopen a `Window` scene once its `NSWindow` has fully closed.
-    @Environment(\.openWindow) private var openWindow
+    @Environment(\.openSettings) private var openSettings
 
     var body: some Scene {
         settingsWindow
     }
 
-    /// Suppressed so Settings doesn't appear on launch/restore. `openWindow` is captured here, not in `onAppear`, since the
-    /// window may never have appeared before the menu bar needs to open it.
+    /// Settings stays closed at launch. Bind the action from the scene body
+    /// so the menu can open it before its content has ever appeared.
     private var settingsWindow: some Scene {
-        let open = openWindow
+        let open = openSettings
         let delegate = appDelegate
         DispatchQueue.main.async {
-            delegate.bindOpenWindowAction { open(id: "settings") }
+            delegate.bindOpenWindowAction { open() }
         }
-        return Window("Glance Settings", id: "settings") {
-            SettingsWindowView(environment: appDelegate.environment)
+        return Settings {
+            SettingsWindowView(environment: delegate.environment)
                 .onAppear {
-                    delegate.bindOpenWindowAction { open(id: "settings") }
+                    delegate.bindOpenWindowAction { open() }
                 }
         }
-        // Deliberately no `.windowResizability(.contentSize)`: it kept re-deriving the window size from the titlebar band,
-        // growing the window whenever that band's height changed. Size is set once by WindowConfiguringView instead.
-        //
-        // Creates the window at its final size from the start. WindowConfiguringView only applies the size a runloop after
-        // the window first draws, so without this the first frame showed SwiftUI's own guess (much wider, much shorter).
-        .defaultSize(SettingsMetrics.windowSize)
-        .windowStyle(.hiddenTitleBar)
-        .defaultPosition(.center)
-        .defaultLaunchBehavior(.suppressed)
-        .restorationBehavior(.disabled)
     }
 }
 
