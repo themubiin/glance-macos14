@@ -43,7 +43,7 @@ https://github.com/user-attachments/assets/77438826-80a9-4ab2-9fc3-42407a2d0adb
 - macOS 15 Sequoia or later
 - Apple Silicon or Intel Mac
 
-<a href="https://github.com/jonnyoo/glance/releases/latest/download/Glance.dmg" target="_self"><img width="200" src="https://github.com/user-attachments/assets/cdb8af97-1ee2-4669-b7cb-dcfb56c9dd61" alt="Download for Mac" /></a>
+<a href="https://github.com/themubiin/glance-macos14/releases/download/DMG/Glance-macOS14-Universal.dmg" target="_self"><img width="200" src="https://github.com/themubiin/glance-macos14/releases/download/DMG/Glance-macOS14-Universal.dmg" alt="Download for Mac" /></a>
 
 Open the `.dmg` file and drag Glance to `/Applications`, then open it.
 
@@ -141,7 +141,7 @@ debug section should appear in the sidebar.
 
 ### Prerequisites
 
-- macOS 15+
+- macOS 14+
 - Xcode 26+
 
 
@@ -150,7 +150,7 @@ debug section should appear in the sidebar.
 
 1. Clone repository:
   ```bash
-   git clone https://github.com/jonnyoo/glance.git
+   git clone https://github.com/themubiin/glance-macos14.git
    cd glance
   ```
 2. Open in Xcode:
@@ -166,7 +166,7 @@ debug section should appear in the sidebar.
 
 Not currently accepting PRs. Feel free to fork this project.
 
-App feedback goes to [tryglance.app/feedback](https://tryglance.app/feedback).
+
 
 ## Acknowledgements
 
@@ -179,4 +179,4 @@ recognition.
 
 ## License
 
-[MIT](LICENSE) © Jonathan Zhou
+[MIT](LICENSE) 
