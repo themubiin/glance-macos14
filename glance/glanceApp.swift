@@ -34,6 +34,7 @@ struct glanceApp: App {
     }
 }
 
+@MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// Owns the long-lived controllers so every Settings page and the menu bar's session row share the same instances instead of
     /// each spinning up its own camera/lock-monitor (see AppEnvironment.swift). Lives here rather than as `@State` because
