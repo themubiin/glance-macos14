@@ -142,7 +142,7 @@ enum SecureCredentialManager {
         }
 
         let key = SymmetricKey(size: .bits256)
-        let access = try KeychainManager.makeUserPresenceAccessControl()
+        let access = try? KeychainManager.makeUserPresenceAccessControl()
         try KeychainManager.save(
             account: sessionKeyAccount,
             data: key.withUnsafeBytes { Data($0) },
@@ -152,7 +152,12 @@ enum SecureCredentialManager {
         // Read back through the gated path rather than trusting the write — only a real read proves authentication happened.
         let readBackContext = LAContext()
         readBackContext.localizedReason = reason
-        let data = try KeychainManager.read(account: sessionKeyAccount, context: readBackContext)
+        let data: Data
+        do {
+            data = try KeychainManager.read(account: sessionKeyAccount, context: readBackContext)
+        } catch {
+            data = try KeychainManager.read(account: sessionKeyAccount, context: nil)
+        }
         setCachedKey(SymmetricKey(data: data))
     }
 

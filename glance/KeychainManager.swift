@@ -62,7 +62,11 @@ enum KeychainManager {
             query[kSecUseAuthenticationContext as String] = context
         }
         var item: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        var status = SecItemCopyMatching(query as CFDictionary, &item)
+        if status == errSecMissingEntitlement && context != nil {
+            query.removeValue(forKey: kSecUseAuthenticationContext as String)
+            status = SecItemCopyMatching(query as CFDictionary, &item)
+        }
         switch status {
         case errSecSuccess:
             guard let data = item as? Data else { throw KeychainError.unexpectedData }
@@ -97,7 +101,12 @@ enum KeychainManager {
             addQuery[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         }
 
-        let status = SecItemAdd(addQuery as CFDictionary, nil)
+        var status = SecItemAdd(addQuery as CFDictionary, nil)
+        if status == errSecMissingEntitlement && accessControl != nil {
+            addQuery.removeValue(forKey: kSecAttrAccessControl as String)
+            addQuery[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+            status = SecItemAdd(addQuery as CFDictionary, nil)
+        }
         guard status == errSecSuccess else { throw KeychainError.osStatus(status) }
     }
 
