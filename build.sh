@@ -23,6 +23,9 @@ xcodebuild -project glance.xcodeproj \
     CONFIGURATION_BUILD_DIR="${RELEASE_DIR}" \
     clean build
 
+echo "==> Codesigning app bundle (ad-hoc)..."
+codesign --force --deep --sign - "${APP_PATH}"
+
 echo "==> Packaging DMG..."
 DMG_ROOT=$(mktemp -d /tmp/glance-dmg.XXXXXX)
 cp -R "${APP_PATH}" "${DMG_ROOT}/"
