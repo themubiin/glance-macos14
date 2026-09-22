@@ -47,9 +47,9 @@ https://github.com/user-attachments/assets/77438826-80a9-4ab2-9fc3-42407a2d0adb
 > [!IMPORTANT]
 > **macOS 14.0 Sonoma or later is required.** For macOS 15 Sequoia, use the [official release](https://github.com/jonnyoo/glance/releases/latest).
 
-Download the latest **Universal DMG** from GitHub Actions:
+Download the latest **Universal DMG** :
 
-**[→ Go to Actions → latest successful build → download `Glance-macOS14-Universal-DMG`](https://github.com/themubiin/glance-macos14/actions/workflows/build.yml)**
+<a href="https://github.com/themubiin/glance-macos14/releases/download/DMG/Glance-macOS14-Universal.dmg" target="_self"><img width="200" src="https://github.com/user-attachments/assets/cdb8af97-1ee2-4669-b7cb-dcfb56c9dd61" alt="Download for Mac" /></a>
 
 Then install:
 
